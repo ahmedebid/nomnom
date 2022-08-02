@@ -1,29 +1,52 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { nanoid } from "nanoid";
-import NameTag from "./components/NameTag"
+import NameTag from "./components/NameTag";
+import logoIcon from "./images/logo-icon.png";
 
 export default function App() {
 
   const [name, setName] = useState("");
-  const [namesList, setNamesList] = useState([]);
+  const [namesList, setNamesList] = useState(() => JSON.parse(localStorage.getItem("names")) || []);
 
-  console.log(name);
-  console.log(namesList);
+  useEffect(() => {
+    localStorage.setItem("names", JSON.stringify(namesList))
+  }, [namesList])
 
   const handleSubmit = (e) => {
       e.preventDefault();
       if (name) {
-        setNamesList(prevNamesList => [...prevNamesList, name]);
+        setNamesList(prevNamesList => 
+          [
+            ...prevNamesList,
+            {
+              id: nanoid(),
+              name: name
+            } 
+          ]);
         setName("");
       }
   }
 
-  const nameTagElements = namesList.map(name => <NameTag key={nanoid()} name={name} />)
+  const deleteTag = (id) => {
+    setNamesList(prevNamesList => prevNamesList.filter(item => item.id !== id ))
+  }
+
+  const nameTagElements = namesList.map(item => 
+    <NameTag 
+      key={item.id} 
+      id={item.id} 
+      name={item.name} 
+      deleteTag={deleteTag}
+    />
+  );
 
   return (
     <main>
-      <h1>NomNom</h1>
-      <p>Name Tag Generator</p>
+      <div className="logo">
+        <img src={logoIcon} alt="logo" />
+        <h1>NomNom</h1>
+      </div>
+      <p className="app-title">Name Tag Generator</p>
       <form onSubmit={handleSubmit}>
         <input 
             type="text" 
@@ -37,7 +60,9 @@ export default function App() {
             Create Name Tag
         </button>
       </form>
-      {nameTagElements}
+      <div className="name-tag-container">
+        {nameTagElements}
+      </div>
     </main>
   )
 }

@@ -38,6 +38,7 @@ html:focus-within {
 
 /* Set core body defaults */
 body {
+  background: #F4EDEA;
   min-height: 100vh;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
@@ -90,7 +91,14 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  padding: 20px;
+}
+
+h1 {
+  font-family: 'Frijole', cursive;
+  font-weight: 400;
+  font-size: 45px;
+  line-height: 1;
 }
 
 
@@ -98,9 +106,57 @@ main {
 /* Specific Styles                              */
 /* -------------------------------------------- */
 
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.app-title {
+  font-size: 25px;
+  margin-bottom: 50px;
+  font-family: 'VT323', monospace;
+}
+
+form {
+  display: flex;
+  gap: 10px;
+}
+
+input {
+  border-radius: 10px;
+  border: none;
+  padding: 10px;
+}
+
+button {
+  background-color: transparent;
+  padding: 0.5em 1.7em;
+  border: 0.16em solid rgb(0, 0, 0);
+  border-radius: 2em;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgb(255, 255, 255);
+}
+
+.name-tag-container {
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px
+}
+
 .name-tag {
+  position: relative;
   width: 350px;
-  background-color: chocolate;
+  background-color: #A85120;
+  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
   border-radius: 20px;
   text-align: center;
 }
@@ -119,8 +175,21 @@ main {
 }
 
 .name {
-  font-family: 'Permanent Marker', cursive;
+  font-family: 'Carter One', cursive;
   font-size: 60px;
   background-color: #fff;
   margin-bottom: 30px;
+}
+
+.delete-name-tag {
+  position: absolute;
+  padding: 5px 8px;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  width: 45px;
+}
+
+.delete-name-tag:hover {
+  filter: drop-shadow(0px 0px 5px #fff);
 }
